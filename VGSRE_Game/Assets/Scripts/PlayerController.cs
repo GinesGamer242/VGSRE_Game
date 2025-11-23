@@ -29,9 +29,10 @@ public class PlayerController : MonoBehaviour
         var rayHit = Physics2D.GetRayIntersection(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()));
 
         if (!rayHit) return;
-        else if (rayHit.collider.gameObject.CompareTag(GameManager.instance.m_ObjectTag))
+        else if (rayHit.collider.gameObject.TryGetComponent<SourceBehaviour>(out SourceBehaviour thisSourceBehaviour))
         {
             Debug.Log($"'{rayHit.collider.gameObject.name}' was clicked");
+            GameManager.instance.GuessSound(this.gameObject);
         }
     }
 

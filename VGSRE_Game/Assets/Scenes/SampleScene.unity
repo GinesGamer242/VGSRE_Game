@@ -458,6 +458,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   m_ObjectTag: Object
+  m_RoundSourceLists: []
+  m_RoundAmount: 0
+  m_DifficultyIncrease: 0
+  m_DifficultyDecrease: 0
+  m_RoundDifficulty:
+  - 0
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -554,7 +560,7 @@ GameObject:
   - component: {fileID: 1462955506}
   - component: {fileID: 1462955505}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: Source
   m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
