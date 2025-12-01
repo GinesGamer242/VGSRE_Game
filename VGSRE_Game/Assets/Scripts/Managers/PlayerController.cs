@@ -3,21 +3,21 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    bool isDragging = false;
-    Vector3 currentMousePosition = Vector3.zero;
-    Vector3 originalMousePosition = Vector3.zero;
-    Vector3 originalCameraPosition = Vector3.zero;
+    bool m_IsDragging = false;
+    Vector3 m_CurrentMousePosition = Vector3.zero;
+    Vector3 m_OriginalMousePosition = Vector3.zero;
+    Vector3 m_OriginalCameraPosition = Vector3.zero;
 
     [SerializeField]
     float cameraMoveSpeed;
 
     private void Update()
     {
-        if (isDragging)
+        if (m_IsDragging)
         {
-            Vector3 cameraOffset = new Vector3((currentMousePosition.x - originalMousePosition.x), 0f, 0f) * cameraMoveSpeed;
+            Vector3 cameraOffset = new Vector3((m_CurrentMousePosition.x - m_OriginalMousePosition.x), 0f, 0f) * cameraMoveSpeed;
 
-            Camera.main.transform.position = (originalCameraPosition - cameraOffset);
+            Camera.main.transform.position = (m_OriginalCameraPosition - cameraOffset);
         }
     }
 
@@ -32,20 +32,20 @@ public class PlayerController : MonoBehaviour
         else if (rayHit.collider.gameObject.TryGetComponent<SourceBehaviour>(out SourceBehaviour thisSourceBehaviour))
         {
             Debug.Log($"'{rayHit.collider.gameObject.name}' was clicked");
-            GameManager.instance.GuessSound(this.gameObject);
+            GameManager.instance.GuessSound(rayHit.collider.gameObject);
         }
     }
 
     public void OnDrag(InputAction.CallbackContext context)
     {
-        isDragging = context.performed;
+        m_IsDragging = context.performed;
 
-        originalMousePosition = currentMousePosition;
-        originalCameraPosition = Camera.main.transform.position;
+        m_OriginalMousePosition = m_CurrentMousePosition;
+        m_OriginalCameraPosition = Camera.main.transform.position;
     }
 
     public void SetMousePosition(InputAction.CallbackContext context)
     {
-        currentMousePosition = new Vector3(context.ReadValue<Vector2>().x, context.ReadValue<Vector2>().y, 0f);
+        m_CurrentMousePosition = new Vector3(context.ReadValue<Vector2>().x, context.ReadValue<Vector2>().y, 0f);
     }
 }
