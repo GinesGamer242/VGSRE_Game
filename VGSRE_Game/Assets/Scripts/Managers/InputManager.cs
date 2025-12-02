@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class InputManager : MonoBehaviour
 {
     bool m_IsDragging = false;
-    Vector3 m_CurrentMousePosition = Vector3.zero;
+    Vector3 m_CurrentMousePosition = new Vector3(0f, 0f, -1f);
     Vector3 m_OriginalMousePosition = Vector3.zero;
     Vector3 m_OriginalCameraPosition = Vector3.zero;
 
@@ -16,8 +16,12 @@ public class PlayerController : MonoBehaviour
         if (m_IsDragging)
         {
             Vector3 cameraOffset = new Vector3((m_CurrentMousePosition.x - m_OriginalMousePosition.x), 0f, 0f) * cameraMoveSpeed;
+            Vector3 newCameraPos = m_OriginalCameraPosition - cameraOffset;
 
-            Camera.main.transform.position = (m_OriginalCameraPosition - cameraOffset);
+            if (GameManager.instance.WillBeWithinScreenLimits(newCameraPos))
+            {
+                Camera.main.transform.position = newCameraPos;
+            }
         }
     }
 

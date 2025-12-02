@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         m_CurrentDifficultyText.text = GameManager.instance.m_CurrentDifficulty.ToString();
-        m_CurrentRoundText.text = GameManager.instance.m_CurrentRound.ToString();
+        m_CurrentRoundText.text = GameManager.instance.m_CurrentRound.m_Number.ToString();
 
         if (GameManager.instance.m_CurrentSource)
         {
