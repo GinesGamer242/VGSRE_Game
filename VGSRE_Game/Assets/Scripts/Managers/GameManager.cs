@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
     {
         m_CurrentSource = GetRandomSource();
 
-        // PLAY SOUND CODE
+        // PLAY SOUND CODE (SoundManager not done yet)
     }
 
     public void GuessSound(GameObject sourceGuess)
