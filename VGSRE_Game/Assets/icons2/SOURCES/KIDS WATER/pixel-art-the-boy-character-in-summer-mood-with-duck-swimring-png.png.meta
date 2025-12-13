@@ -1,22 +1,10 @@
 fileFormatVersion: 2
-guid: 6b3d5df2d65193d428659c4cf01656c2
+guid: 45d470bfe3c994144861bf2329bad1cc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -105497433518616501
-    second: 63_0
-  - first:
-      213: 7976220435001255072
-    second: 63_1
-  - first:
-      213: 3864522152757736873
-    second: 63_2
-  - first:
-      213: 5576171094664569677
-    second: 63_3
-  - first:
-      213: -8229496073986346907
-    second: 63_4
+      213: -1941940164364517093
+    second: pixel-art-the-boy-character-in-summer-mood-with-duck-swimring-png_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -112,111 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 63_0
+      name: pixel-art-the-boy-character-in-summer-mood-with-duck-swimring-png_0
       rect:
         serializedVersion: 2
-        x: 392
-        y: 4211
-        width: 1183
-        height: 508
+        x: 67
+        y: 106
+        width: 216
+        height: 244
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b405866a4a2398ef0800000000000000
-      internalID: -105497433518616501
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 63_1
-      rect:
-        serializedVersion: 2
-        x: 1067
-        y: 0
-        width: 3038
-        height: 5056
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0a4267ec93a31be60800000000000000
-      internalID: 7976220435001255072
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 63_2
-      rect:
-        serializedVersion: 2
-        x: 3596
-        y: 4211
-        width: 1183
-        height: 508
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9a5b0cd3c6a81a530800000000000000
-      internalID: 3864522152757736873
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 63_3
-      rect:
-        serializedVersion: 2
-        x: 392
-        y: 3537
-        width: 1183
-        height: 508
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d436848111a826d40800000000000000
-      internalID: 5576171094664569677
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 63_4
-      rect:
-        serializedVersion: 2
-        x: 3596
-        y: 3537
-        width: 1183
-        height: 508
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 56072952ce4facd80800000000000000
-      internalID: -8229496073986346907
+      spriteID: b114df795b7dc05e0800000000000000
+      internalID: -1941940164364517093
       vertices: []
       indices: 
       edges: []
@@ -225,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 106ecd74ea3054140af912e5bee9ba09
     internalID: 0
     vertices: []
     indices: 
@@ -235,11 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      63_0: -105497433518616501
-      63_1: 7976220435001255072
-      63_2: 3864522152757736873
-      63_3: 5576171094664569677
-      63_4: -8229496073986346907
+      pixel-art-the-boy-character-in-summer-mood-with-duck-swimring-png_0: -1941940164364517093
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
