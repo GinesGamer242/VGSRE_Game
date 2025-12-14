@@ -2168,7 +2168,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &435986200
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2926,7 +2926,9 @@ MonoBehaviour:
   m_CurrentLevel: 0
   m_CurrentTries: 0
   m_CurrentSuccessfulTries: 0
+  m_CurrentSuccessRate: 0
   m_CurrentSequenceIndex: 0
+  m_IsCurrentSequenceCorrect: 0
   m_CurrentSequence: []
   m_CurrentLoopSequence:
     m_SequenceLength: 0
@@ -3034,6 +3036,8 @@ MonoBehaviour:
     m_SequenceLength: 5
     m_RepeatsSequence: 0
     m_RepetitionTime: 0
+  m_CorrectSound: {fileID: 8300000, guid: daad98a5b22d40c499b4696eeb0ae9a4, type: 3}
+  m_IncorrectSound: {fileID: 8300000, guid: 580d9a332a527de499680d8d11dfb44d, type: 3}
   m_CanRegressRounds: 1
   m_SuccessRateThreshold: 0.75
   m_TimeBetweenSequenceAudios: 1

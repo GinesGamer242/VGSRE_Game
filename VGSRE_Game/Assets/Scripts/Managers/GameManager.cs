@@ -69,7 +69,11 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public int m_CurrentSuccessfulTries = 0;
     [HideInInspector]
+    public float m_CurrentSuccessRate = 0f;
+    [HideInInspector]
     public int m_CurrentSequenceIndex = 0;
+    [HideInInspector]
+    public bool m_IsCurrentSequenceCorrect = false;
     [HideInInspector]
     public List<GameObject> m_CurrentSequence = null;
     [HideInInspector]
@@ -108,6 +112,10 @@ public class GameManager : MonoBehaviour
     Round[] m_RoundsList;
     [SerializeField]
     LoopSequence m_FinalLoopSequence;
+    [SerializeField]
+    AudioClip m_CorrectSound;
+    [SerializeField]
+    AudioClip m_IncorrectSound;
 
     [Header("Parameters")]
     public bool m_CanRegressRounds;
@@ -141,6 +149,7 @@ public class GameManager : MonoBehaviour
             }
             while (newSource == lastSource);
 
+            lastSource = newSource;
 
             newSequence.Add(newSource);
         }
@@ -154,9 +163,16 @@ public class GameManager : MonoBehaviour
 
         if (sourceGuess == m_CurrentSequence[m_CurrentSequenceIndex])
         {
-            m_CurrentSequenceIndex++;
-
             m_TotalSuccessfulSounds++;
+
+            if (m_CurrentSequenceIndex + 1 == m_CurrentSequence.Count)
+            {
+                m_IsCurrentSequenceCorrect = true;
+            }
+            else
+            {
+                m_CurrentSequenceIndex++;
+            }
         }
         else
         {
@@ -166,9 +182,16 @@ public class GameManager : MonoBehaviour
             m_TotalFailedTries++;
 
             m_CurrentSequenceIndex = 0;
-            PlaySequence(m_CurrentSequence, m_CurrentLoopSequence);
-            PlayChronometerCoroutine();
+            StartCoroutine(IncorrectGuessCoroutine());
         }
+    }
+
+    IEnumerator IncorrectGuessCoroutine()
+    {
+        StopCoroutine(m_CurrentSequenceCoroutine);
+        yield return PlaySourceCoroutine(m_IncorrectSound);
+        PlaySequence(m_CurrentSequence, m_CurrentLoopSequence);
+        PlayChronometerCoroutine();
     }
 
     public GameObject GetRandomSource()
@@ -191,7 +214,7 @@ public class GameManager : MonoBehaviour
 
     float CalculateSuccessRate(int successfulTries, int totalTries)
     {
-        return (successfulTries / totalTries);
+        return ((float)successfulTries / (float)totalTries);
     }
 
     void PlaySequence(List<GameObject> sequence, LoopSequence loopSequence)
@@ -212,9 +235,7 @@ public class GameManager : MonoBehaviour
                 if (audioSource.TryGetComponent<SourceBehaviour>(out SourceBehaviour sourceBehaviour))
                 {
                     Debug.Log(audioSource);
-                    m_CameraAudioSource.resource = sourceBehaviour.GetAudioClip();
-                    m_CameraAudioSource.Play();
-                    yield return new WaitForSeconds(m_CameraAudioSource.clip.length + m_TimeBetweenSequenceAudios);
+                    yield return PlaySourceCoroutine(sourceBehaviour.GetAudioClip());
                 }
             }
 
@@ -251,6 +272,8 @@ public class GameManager : MonoBehaviour
                     PlayChronometerCoroutine();
 
                     yield return new WaitUntil(HasCurrentSequenceFinished);
+                    StopCoroutine(m_CurrentSequenceCoroutine);
+                    yield return PlaySourceCoroutine(m_CorrectSound);
 
                     m_CurrentTries++;
                     m_CurrentSuccessfulTries++;
@@ -261,22 +284,29 @@ public class GameManager : MonoBehaviour
                     m_CurrentSequenceIndex = 0;
                 }
 
-                while (CalculateSuccessRate(m_CurrentSuccessfulTries, m_CurrentTries) <= m_SuccessRateThreshold)
+                if (CalculateSuccessRate(m_CurrentSuccessfulTries, m_CurrentTries) < m_SuccessRateThreshold)
                 {
-                    m_CurrentSequence = BuildSequence(m_CurrentLoopSequence.m_SequenceLength);
+                    while (m_CurrentSuccessRate < m_SuccessRateThreshold)
+                    {
+                        m_CurrentSequence = BuildSequence(m_CurrentLoopSequence.m_SequenceLength);
 
-                    PlaySequence(m_CurrentSequence, m_CurrentLoopSequence);
-                    PlayChronometerCoroutine();
+                        PlaySequence(m_CurrentSequence, m_CurrentLoopSequence);
+                        PlayChronometerCoroutine();
 
-                    yield return new WaitUntil(HasCurrentSequenceFinished);
+                        yield return new WaitUntil(HasCurrentSequenceFinished);
+                        yield return PlaySourceCoroutine(m_CorrectSound);
 
-                    m_CurrentTries++;
-                    m_CurrentSuccessfulTries++;
+                        m_CurrentTries++;
+                        m_CurrentSuccessfulTries++;
 
-                    m_TotalTries++;
-                    m_TotalSuccessfulTries++;
+                        m_TotalTries++;
+                        m_TotalSuccessfulTries++;
 
-                    m_CurrentSequenceIndex = 0;
+                        m_CurrentSequenceIndex = 0;
+
+                        Debug.Log(CalculateSuccessRate(m_CurrentSuccessfulTries, m_CurrentTries));
+                        m_CurrentSuccessRate = CalculateSuccessRate(m_CurrentSuccessfulTries, m_CurrentTries);
+                    }
                 }
 
                 m_LevelTries.Add(m_CurrentTries);
@@ -286,6 +316,7 @@ public class GameManager : MonoBehaviour
 
                 m_CurrentTries = 0;
                 m_CurrentSuccessfulTries = 0;
+                m_CurrentSuccessRate = 0f;
             }
         }
 
@@ -361,8 +392,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    IEnumerator PlaySourceCoroutine(AudioClip audioClip)
+    {
+        m_CameraAudioSource.Stop();
+        m_CameraAudioSource.resource = audioClip;
+        m_CameraAudioSource.Play();
+        yield return new WaitForSeconds(m_CameraAudioSource.clip.length + m_TimeBetweenSequenceAudios);
+    }
+
     bool HasCurrentSequenceFinished()
     {
-        return (m_CurrentSequenceIndex >= m_CurrentSequence.Count);
+        if (m_IsCurrentSequenceCorrect)
+        {
+            m_IsCurrentSequenceCorrect = false;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
