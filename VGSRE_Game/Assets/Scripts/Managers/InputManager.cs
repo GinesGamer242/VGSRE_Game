@@ -18,7 +18,7 @@ public class InputManager : MonoBehaviour
             Vector3 cameraOffset = new Vector3((m_CurrentMousePosition.x - m_OriginalMousePosition.x), 0f, 0f) * cameraMoveSpeed;
             Vector3 newCameraPos = m_OriginalCameraPosition - cameraOffset;
 
-            if (GameManager.instance.WillBeWithinScreenLimits(newCameraPos))
+            if (WillBeWithinScreenLimits(newCameraPos))
             {
                 Camera.main.transform.position = newCameraPos;
             }
@@ -51,5 +51,18 @@ public class InputManager : MonoBehaviour
     public void SetMousePosition(InputAction.CallbackContext context)
     {
         m_CurrentMousePosition = new Vector3(context.ReadValue<Vector2>().x, context.ReadValue<Vector2>().y, 0f);
+    }
+
+    public bool WillBeWithinScreenLimits(Vector3 newCameraPosition)
+    {
+        float halfScreenDistance = Vector3.Distance(Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0f, 0f)),
+                                                    Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, 0f, 0f)));
+
+        if (GameManager.instance.m_CanRegressRounds)
+            return (newCameraPosition.x >= (GameManager.instance.m_HighestRound.m_LeftScreenLimit.position.x + halfScreenDistance) &&
+                    newCameraPosition.x <= (GameManager.instance.m_HighestRound.m_RightScreenLimit.position.x - halfScreenDistance));
+        else
+            return (newCameraPosition.x >= (GameManager.instance.m_HighestRound.m_LeftScreenLimit.position.x + halfScreenDistance) &&
+                    newCameraPosition.x <= (GameManager.instance.m_HighestRound.m_RightScreenLimit.position.x - halfScreenDistance));
     }
 }

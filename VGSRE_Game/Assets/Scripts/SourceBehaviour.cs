@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class SourceBehaviour : MonoBehaviour
 {
-    public AudioClip audioClip;
-    public void OnCorrectSource()
+    public AudioClip m_AudioClip;
+
+    public AudioClip GetAudioClip()
     {
-        
+        return m_AudioClip;
     }
 }
