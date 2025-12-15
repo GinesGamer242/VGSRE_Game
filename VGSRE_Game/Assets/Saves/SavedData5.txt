@@ -1,0 +1,1 @@
+{"totalPlayTime":240.0008087158203,"levelReached":5,"tries":17,"successfulTries":16,"failedTries":1,"levelTries":[4.0,2.0,4.0,7.0,1.0],"levelSuccessfulTries":[4.0,2.0,4.0,6.0,1.0],"levelSuccessRate":[1.0,1.0,1.0,0.8571428656578064,1.0],"totalSuccessRate":0.0,"averageSoundLocalizationTime":4.238872051239014,"maxSequenceLength":6,"correctSounds":43}

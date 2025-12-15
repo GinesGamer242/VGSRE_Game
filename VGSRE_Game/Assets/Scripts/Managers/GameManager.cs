@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data.Common;
 using NUnit.Framework;
 using Unity.Mathematics;
-using UnityEditor.XR;
+//using UnityEditor.XR;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -124,11 +124,14 @@ public class GameManager : MonoBehaviour
     public float m_TimeBetweenSequenceAudios;
     public float m_TotalTime;
 
+    public GameObject m_EndSession;
+
     private void Start()
     {
         m_CurrentRound = m_RoundsList[0];
         m_HighestRound = m_CurrentRound;
         m_RemainingTime = m_TotalTime;
+        m_EndSession.SetActive(false);
 
         StartCoroutine(RoundProcessorCoroutine());
         StartCoroutine(TimerCoroutine());
@@ -362,6 +365,14 @@ public class GameManager : MonoBehaviour
 
         SaveManager.instance.SaveData();
         Debug.Log("Timer out");
+
+        Time.timeScale = 0f;
+
+        UIManager uiManager = FindObjectOfType<UIManager>();
+        if (uiManager != null)
+        {
+            uiManager.SessionCompleted();
+        }
     }
 
     void PlayChronometerCoroutine()
