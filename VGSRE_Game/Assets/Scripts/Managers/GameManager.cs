@@ -237,14 +237,14 @@ public class GameManager : MonoBehaviour
             {
                 if (audioSource.TryGetComponent<SourceBehaviour>(out SourceBehaviour sourceBehaviour))
                 {
-                    Debug.Log(audioSource);
+                    //Debug.Log(audioSource);
                     yield return PlaySourceCoroutine(sourceBehaviour.GetAudioClip());
                 }
             }
 
             if (loopSequence.m_RepeatsSequence)
                 yield return new WaitForSeconds(loopSequence.m_RepetitionTime - m_TimeBetweenSequenceAudios);
-            Debug.Log($"Sequence done ({loopSequence.m_SequenceLength}, {loopSequence.m_RepeatsSequence}, {loopSequence.m_RepetitionTime})");
+            //Debug.Log($"Sequence done ({loopSequence.m_SequenceLength}, {loopSequence.m_RepeatsSequence}, {loopSequence.m_RepetitionTime})");
         }
         while (loopSequence.m_RepeatsSequence);
     }
